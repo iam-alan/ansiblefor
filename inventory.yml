@@ -1,0 +1,32 @@
+all:
+  hosts:
+    iam:
+      ansible_user: me
+      ansible_host: 172.16.19.1
+      ansible_become: yes
+      ansible_become_method: sudo
+      ansible_become_pass: asd
+    iam1:
+      ansible_user: me2
+      ansible_host: 172.16.19.2
+      ansible_become: yes
+      ansible_become_method: sudo
+      ansible_become_pass: asd123.
+    iam2:
+      ansible_user: me3
+      ansible_host: 172.16.19.3
+      ansible_become: yes
+      ansible_become_method: sudo
+      ansible_become_pass: asd123.
+  children:
+    gild:
+      hosts:
+        iam:
+        iam1:
+    gild1:
+      hosts:
+        iam2:      
+    maingild:
+      children:
+        gild:
+        gild1:

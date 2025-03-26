@@ -1,0 +1,17 @@
+- name: playbook for nginx
+  hosts: iam1
+  tasks:
+  - name: installation
+    dnf:
+      name: nginx
+      state: present
+  - name:
+    dnf:
+      name: curl
+      state: latest
+  - name:      
+    dnf:
+      name: git
+      state: latest
+
+

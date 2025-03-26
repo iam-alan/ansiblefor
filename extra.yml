@@ -1,0 +1,6 @@
+- name: extra
+  hosts: iam2
+  gather_facts: no
+  tasks:
+  - name: nothig
+    gather_facts:

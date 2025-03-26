@@ -1,0 +1,10 @@
+- name: variables
+  hosts: iam
+  tasks:
+  - name: To know
+    debug:
+      msg: |
+        "the host name is {{ansible_hostname}}"
+        "the user name is {{ansible_user}}"
+        "IP address is {{ansible_host}}"
+

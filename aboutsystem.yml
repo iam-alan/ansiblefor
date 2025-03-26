@@ -1,0 +1,11 @@
+- name: about
+  hosts: iam1
+  tasks:
+  - name: 
+    debug:
+      msg: |
+        "os name {{ansible_distribution}}"
+        "os version {{ansible_distribution_version}}"
+        "kernel version {{ansible_kernel}}"
+        "architecture {{ansible_architecture}}"
+
