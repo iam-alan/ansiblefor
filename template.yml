@@ -1,0 +1,6 @@
+- name: temp
+  hosts: iam1
+  tasks:
+  - template:
+      src: /home/synnefo/Videos/ansiblefor/file.j2
+      dest: /home/me2

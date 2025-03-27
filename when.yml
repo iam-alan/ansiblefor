@@ -1,0 +1,11 @@
+- name: something
+  hosts: iam1
+  vars:
+    app: nginx
+  tasks:
+  - dnf:
+      name: "{{app}}"
+      state: latest
+    when:
+      - ansible_user == 'me2'
+      - ansible_host == '172.16.19.2'

@@ -1,0 +1,26 @@
+- name: install
+  hosts: iam1
+  vars:
+    app: httpd
+  tasks:
+  - name: installation
+    dnf:
+      name: "{{app}}"
+      state: present
+  - name: start and enable
+    service:
+      name: "{{app}}"
+      enabled: yes
+      state: started
+  - name: welcome page
+    copy:
+      dest: /var/www/html/index.html
+      content: 'have some fun'
+      mode:  0644
+  - name: open http port
+    firewalld:
+      service: http
+      permanent: yes
+      state: enabled
+  - name: reload firewall
+    shell: firewall-cmd --reload
