@@ -1,0 +1,22 @@
+ - name: task
+   hosts: iam1
+   vars:
+     path: site.conf.j2
+     way: /etc/nginx/conf.d
+   tasks:
+   - dnf:
+       name: nginx
+       state: latest
+   - service:
+       name: nginx
+       enabled: yes
+       state: started
+   - template:
+       src: "{{path}}" 
+       dest: "{{way}}/site.conf"
+     notify: lets do this
+   handlers:
+   - name: lets do this
+     service:
+       name: nginx
+       state: restarted
