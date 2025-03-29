@@ -1,0 +1,20 @@
+- name: listing
+  hosts: iam1
+  tasks:
+  - package:
+      name:
+         - git
+         - curl
+         - nfs-utils
+         - chrony
+         - nginx
+      state: present
+  - service:
+      name: "{{item}}"
+      enabled: yes
+      state: started
+    loop:
+        - nfs-utils
+        - chronyd
+        - nginx
+
