@@ -1,0 +1,4 @@
+- name: nothing
+  hosts: iam1
+  roles:
+      - rockwithroles

@@ -1,0 +1,23 @@
+- name: httpd
+  dnf:
+    name: httpd
+    state: present
+- name: enable
+  service:
+    name: httpd
+    enabled: yes
+    state: started
+  notify: come on
+- copy:
+    src: html
+    dest: /var/www/html
+- name: Open HTTP port (80) on the firewall
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    state: enabled
+- name: reload firewall
+  shell: firewall-cmd --reload
+  notify: no change
+
+
