@@ -1,0 +1,53 @@
+- name: Install Apache
+  dnf:
+    name: "{{ app }}"
+    state: present
+
+- name: Start and enable Apache
+  service:
+    name: "{{ app }}"
+    enabled: yes
+    state: started
+
+- name: Create directories for site1
+  file:
+    path: "{{ way1 }}"
+    state: directory
+    mode: '0755'
+- name: Create directories for site2
+  file:
+    path: "{{ way2 }}"
+    state: directory
+    mode: '0755'
+- name: Add a simple welcome page for site1
+  copy:
+    dest: "{{ way1 }}/index.html"
+    content: "welcome to site1"
+    mode: '0644'
+- name: Add a simple welcome page for site2
+  copy:
+    dest: "{{ way2 }}/index.html"
+    content: "welcome to site2"
+    mode: '0644'
+- name: Create virtual host configuration for  site1
+  template:
+    src: site1.conf.j2
+    dest: "/etc/httpd/conf.d/{{path1}}.conf"
+  notify: Restart
+- name: Create virtual host configuration for site2
+  template:
+    src: site2.conf.j2
+    dest: "/etc/httpd/conf.d/{{path2}}.conf"
+  notify: Restart
+
+- name: Open HTTP port in firewall
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+  when: ansible_facts['distribution'] == 'RedHat'
+  notify: Reload firewall
+- name: Reload firewall
+  shell: firewall-cmd --reload
+  when: ansible_facts['distribution'] == 'RedHat'  
+  notify: Reload firewall
